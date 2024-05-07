@@ -7,6 +7,8 @@ use Graphicode\Standard\TDO\TDO;
 use Stripe\Stripe;
 use Stripe\Checkout\Session;
 use Stripe\Exception\ApiErrorException;
+use Throwable;
+
 class StripeService
 {
     private $SecretKey;
@@ -35,7 +37,7 @@ class StripeService
             ]);
             
             return $session->url;
-        }catch(ApiErrorException  $e){
+        }catch(\Throwable $e){
             return ['error' => $e->getMessage()];
         }
     }

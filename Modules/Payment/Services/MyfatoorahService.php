@@ -4,66 +4,65 @@ namespace Modules\Payment\Services;
 
 use Graphicode\Standard\TDO\TDO;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Support\Facades\Auth;
 use MyFatoorah\Library\API\Payment\MyFatoorahPayment;
 use MyFatoorah\Library\API\Payment\MyFatoorahPaymentStatus;
 
 class MyfatoorahService
 {
 
-    /**
-     * @var array
-     */
-    public $mfConfig = [];
+    private $user;
+    private $mfConfig          = [];
+    private $language          = 'en';
+    private $success_url       = 'https://example.com/success';
+    private $cancel_url        = 'https://example.com/cancel';
 
-    /**
-     * Initiate MyFatoorah Configuration
-     */
+    private $mobileCountryCode = '+965' ;
+
     public function __construct()
     {
         $this->mfConfig = [
-            'apiKey'      => config('myfatoorah.api_key'),
-            'isTest'      => config('myfatoorah.test_mode'),
-            'countryCode' => config('myfatoorah.country_iso'),
+            'apiKey'      => config('payment.myfatoorah.api_key'),
+            'isTest'      => config('payment.myfatoorah.test_mode'),
+            'countryCode' => config('payment.myfatoorah.country_iso'),
         ];
+        $this->user = Auth::user();
     }
 
 
-    public function sendPayment(Authenticatable $user, TDO $paymentData)
+    public function sendPayment(TDO $tdo)
     {
         try {
             //For example: pmid=0 for MyFatoorah invoice or pmid=1 for Knet in test mode
-            $paymentId = $paymentData->pmid ?: 0;
-            $sessionId = $paymentData->sid  ?: null;
+            $paymentId = $tdo->pmid ?: 0;
+            $sessionId = $tdo->sid  ?: null;
 
-            $curlData = $this->getPayLoadData($user, $paymentData);
+            $curlData = $this->Payload($tdo);
 
             $mfObj   = new MyFatoorahPayment($this->mfConfig);
             $payment = $mfObj->getInvoiceURL($curlData, $paymentId, $orderId, $sessionId);
 
             return $payment['invoiceURL'];
-        } catch (\Exception $ex) {
-            return null;
+        } catch (\Throwable $e) {
+            return ['error' => $e->getMessage()];
         }
     }
 
 
-    private function getPayLoadData(Authenticatable$user, TDO $paymentData)
+    private function Payload(TDO $tdo)
     {
-        $callbackURL = route('myfatoorah.callback');
-
-
         return [
-            'CustomerName'       => $user->extra->name,
-            'InvoiceValue'       => $paymentData->total,
-            'DisplayCurrencyIso' => $paymentData->currency,
-            'CustomerEmail'      => $user->extra->email,
-            'CallBackUrl'        => $callbackURL,
-            'ErrorUrl'           => $callbackURL,
-            // 'MobileCountryCode'  => '+965',
-            // 'CustomerMobile'     => $user->extra->phone,
-            'Language'           => 'en',
-            'CustomerReference'  => $paymentData->orderId,
-            'SourceInfo'         => 'Laravel ' . app()::VERSION . ' - MyFatoorah Package ' . MYFATOORAH_LARAVEL_PACKAGE_VERSION
+            'CustomerName'       => $this->user->name,
+            'InvoiceValue'       => $tdo->total,
+            'DisplayCurrencyIso' => $tdo->currency,
+            'CustomerEmail'      => $this->user->email,
+            'CallBackUrl'        => $this->success_url,
+            'ErrorUrl'           => $this->cancel_url,
+            'MobileCountryCode'  => $this->mobileCountryCode,
+            'CustomerMobile'     => $this->user->phone,
+            'Language'           => $this->language,
+            'CustomerReference'  => $tdo->orderId,
+            // 'SourceInfo'         => 'Laravel ' . app()::VERSION . ' - MyFatoorah Package ' . MYFATOORAH_LARAVEL_PACKAGE_VERSION
         ];
     }
 

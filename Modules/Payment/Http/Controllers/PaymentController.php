@@ -30,9 +30,7 @@ class PaymentController extends Controller
         if (isset($payment['error'])) {
             return $this->badResponse(message:'invaled payment');
         }
-     
         
-        return $this->okResponse($payment,message:'success payment');
-        
+        return $this->okResponse($payment,message:'success payment');  
     }
 }

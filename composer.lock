@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e6e3d1bbe331ce46c574680c49d3b99a",
+    "content-hash": "472e56aefbbc3ed85266f7ff1252f7f1",
     "packages": [
         {
             "name": "brick/math",
@@ -641,16 +641,16 @@
         },
         {
             "name": "graphicode/standard",
-            "version": "v1.0",
+            "version": "v1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/AhmedFekry98/laravel-gcode-standard.git",
-                "reference": "8faa611aef85b0a02c30704f2bd5ad2071b2050c"
+                "reference": "458eab6d848c73b22f2f2e84b10d384d4d05c484"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/AhmedFekry98/laravel-gcode-standard/zipball/8faa611aef85b0a02c30704f2bd5ad2071b2050c",
-                "reference": "8faa611aef85b0a02c30704f2bd5ad2071b2050c",
+                "url": "https://api.github.com/repos/AhmedFekry98/laravel-gcode-standard/zipball/458eab6d848c73b22f2f2e84b10d384d4d05c484",
+                "reference": "458eab6d848c73b22f2f2e84b10d384d4d05c484",
                 "shasum": ""
             },
             "require": {
@@ -669,16 +669,16 @@
             ],
             "authors": [
                 {
-                    "name": "abdulrhman-developer0",
-                    "email": "tknwtknwlwjy10@gmail.com"
+                    "name": "AhmedFekry98",
+                    "email": "AhmedFekry@graphicode.com"
                 }
             ],
             "description": "the standard utlities for graphicode laravel team",
             "support": {
                 "issues": "https://github.com/AhmedFekry98/laravel-gcode-standard/issues",
-                "source": "https://github.com/AhmedFekry98/laravel-gcode-standard/tree/v1.0"
+                "source": "https://github.com/AhmedFekry98/laravel-gcode-standard/tree/v1"
             },
-            "time": "2024-05-05T15:26:45+00:00"
+            "time": "2024-05-05T16:13:27+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -2041,6 +2041,70 @@
                 }
             ],
             "time": "2024-04-12T21:02:21+00:00"
+        },
+        {
+            "name": "myfatoorah/library",
+            "version": "2.2.7",
+            "source": {
+                "type": "git",
+                "url": "https://dev.azure.com/myfatoorahsc/Public-Repo/_git/Library",
+                "reference": "9daacff144df983d8ecb3872e49dcf2d5e515ea2"
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": ">=7"
+            },
+            "require-dev": {
+                "phan/phan": "^5.4",
+                "phpcompatibility/php-compatibility": "*",
+                "phpstan/phpstan": "^1.10",
+                "phpunit/phpunit": "^9.5",
+                "squizlabs/php_codesniffer": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "autoload.php"
+                ],
+                "psr-4": {
+                    "MyFatoorah\\Library\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "MyFatoorah Plugin Team",
+                    "email": "plugins@myfatoorah.com"
+                },
+                {
+                    "name": "Nermeen Shoman",
+                    "email": "nshoman@myfatoorah.com",
+                    "role": "Senior Software Engineer"
+                },
+                {
+                    "name": "Rasha Saeed",
+                    "email": "rsaeed@myfatoorah.com",
+                    "role": "Senior Software Engineer"
+                }
+            ],
+            "description": "MyFatoorah PHP Library",
+            "homepage": "https://myfatoorah.com/",
+            "keywords": [
+                "My Fatoorah",
+                "api",
+                "commerce",
+                "fatoorah",
+                "gateway",
+                "library",
+                "myfatoorah",
+                "payment",
+                "shipping"
+            ],
+            "time": "2024-04-28T12:22:01+00:00"
         },
         {
             "name": "nesbot/carbon",
